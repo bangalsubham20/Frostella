@@ -63,12 +63,30 @@ export default function AdminDashboard() {
           onSubmit={async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
+            
+            let imageUrl = '';
+            const imageFile = formData.get('imageFile');
+            if (imageFile && imageFile.size > 0) {
+              try {
+                const uploadData = new FormData();
+                uploadData.append('image', imageFile);
+                const uploadRes = await api.post('/images/upload', uploadData, {
+                  headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                imageUrl = uploadRes.data.url;
+              } catch (err) {
+                alert('Image upload failed');
+                console.error(err);
+                return;
+              }
+            }
+
             const newProduct = {
               name: formData.get('name'),
               price: parseFloat(formData.get('price')),
               category: formData.get('category'),
               description: formData.get('description'),
-              imageUrl: formData.get('imageUrl') || '',
+              imageUrl: imageUrl,
               isAvailable: true
             };
             try {
@@ -98,8 +116,8 @@ export default function AdminDashboard() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-accent mb-2">Image URL (Optional placeholder)</label>
-            <input name="imageUrl" type="text" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary" placeholder="https://..." />
+            <label className="block text-sm font-medium text-accent mb-2">Product Image (Cloudinary)</label>
+            <input name="imageFile" type="file" accept="image/*" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-opacity-90 cursor-pointer" />
           </div>
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-accent mb-2">Description</label>
