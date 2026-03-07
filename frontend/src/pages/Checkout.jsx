@@ -6,7 +6,7 @@ import api from '../services/api';
 
 export default function Checkout() {
   const { items, total } = useSelector(state => state.cart);
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated, userId, email: userEmail } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,18 +48,35 @@ export default function Checkout() {
         description: 'Bakery Order Payment',
         order_id: data.orderId,
         handler: async function (response) {
-          // Payment Successful, Create the actual backend Order
+          // 1. Verify Payment Signature in Backend
           try {
-            const finalOrder = await api.post('/orders', orderData);
-            dispatch(clearCart());
-            navigate('/order-confirmation', { state: { orderId: finalOrder.data.id } });
+            const verifyRes = await api.post('/payment/verify-payment', {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature
+            });
+
+            if (verifyRes.data.status === 'success') {
+              // 2. Verification Successful, Create the actual backend Order
+              const backendOrderData = {
+                ...orderData,
+                paymentTransactionId: response.razorpay_payment_id,
+                status: 'PROCESSING'
+              };
+              const finalOrder = await api.post('/orders', backendOrderData);
+              dispatch(clearCart());
+              navigate('/order-confirmation', { state: { orderId: finalOrder.data.id } });
+            } else {
+              alert('Payment verification failed');
+            }
           } catch (e) {
-            dispatch(clearCart());
-            navigate('/order-confirmation', { state: { orderId: response.razorpay_payment_id } });
+            console.error("Payment verification or Order creation failed", e);
+            alert('Something went wrong during payment verification. Please contact support.');
           }
         },
         prefill: {
           name: formData.name,
+          email: userEmail,
           contact: formData.phone,
         },
         theme: {
@@ -83,7 +100,7 @@ export default function Checkout() {
     }
     
     const orderData = {
-      user: { id: 1 }, 
+      user: { id: userId }, 
       totalAmount: total,
       deliveryAddress: formData.deliveryAddress,
       deliveryDate: formData.deliveryDate,

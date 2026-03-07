@@ -17,10 +17,8 @@ export default function Login() {
       dispatch(loginSuccess(data));
       navigate('/');
     } catch (error) {
-      alert('Login failed. For demo, mocking a login.');
-      // Mock login for demo
-      dispatch(loginSuccess({ token: "fake-jwt-token", role: email === 'admin@frostella.com' ? 'ADMIN' : 'CUSTOMER', email }));
-      navigate('/');
+      console.error(error);
+      alert('Login failed. Please check your credentials or ensure the backend server is running.');
     }
   };
 

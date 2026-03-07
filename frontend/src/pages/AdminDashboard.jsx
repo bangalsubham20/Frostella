@@ -29,6 +29,16 @@ export default function AdminDashboard() {
     return orders.reduce((total, order) => total + order.totalAmount, 0);
   };
 
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      await api.put(`/orders/${orderId}/status`, { status: newStatus });
+      setOrders(orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
+    } catch (err) {
+      alert('Failed to update status');
+      console.error(err);
+    }
+  };
+
   if (!isAuthenticated || role !== 'ADMIN') {
     return <div className="py-24 text-center text-xl text-red-500 font-medium">Access Denied. Admin privileges required.</div>;
   }
@@ -155,12 +165,20 @@ export default function AdminDashboard() {
                   <td className="py-4 text-accent">{order.deliveryDate}</td>
                   <td className="py-4 font-medium text-primary">₹{order.totalAmount}</td>
                   <td className="py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium 
-                      ${order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 
-                        order.status === 'PROCESSING' ? 'bg-blue-100 text-blue-800' : 
-                        'bg-green-100 text-green-800'}`}>
-                      {order.status || 'PENDING'}
-                    </span>
+                    <select
+                      value={order.status || 'PENDING'}
+                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      className={`px-3 py-1 rounded-full text-xs font-medium border-none cursor-pointer outline-none focus:ring-2 focus:ring-primary
+                        ${order.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' : 
+                          order.status === 'PROCESSING' ? 'bg-blue-100 text-blue-800' : 
+                          'bg-green-100 text-green-800'}`}
+                    >
+                      <option value="PENDING">PENDING</option>
+                      <option value="PROCESSING">PROCESSING</option>
+                      <option value="SHIPPED">SHIPPED</option>
+                      <option value="DELIVERED">DELIVERED</option>
+                      <option value="CANCELLED">CANCELLED</option>
+                    </select>
                   </td>
                   <td className="py-4">
                     <span className="text-sm text-accent font-medium">{order.paymentMethod || 'COD'}</span>

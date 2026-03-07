@@ -15,8 +15,8 @@ export default function Register() {
       alert('Registration successful! Please login.');
       navigate('/login');
     } catch (error) {
-      alert('Registration failed. Mocking success for demo.');
-      navigate('/login');
+      console.error(error);
+      alert('Registration failed. Please try again or check your backend connection.');
     }
   };
 
