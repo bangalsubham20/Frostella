@@ -17,8 +17,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # -----------------
-# 2. Backend / Java
+# 2. Backend / Java (Tracked in separate repository)
 # -----------------
+backend/
 backend/target/
 backend/*.class
 backend/*.log
