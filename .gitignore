@@ -1,0 +1,62 @@
+# ==========================================
+# Frostella Full-Stack Project .gitignore
+# ==========================================
+
+# -----------------
+# 1. Frontend / Node
+# -----------------
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.env
+frontend/.env.*
+frontend/.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -----------------
+# 2. Backend / Java
+# -----------------
+backend/target/
+backend/*.class
+backend/*.log
+backend/dependency-reduced-pom.xml
+
+# IntelliJ IDEA / Eclipse
+backend/.idea/
+backend/*.iml
+backend/.project
+backend/.classpath
+backend/.settings/
+backend/.mvn/wrapper/maven-wrapper.jar
+
+# -----------------
+# 3. Environment & OS
+# -----------------
+.DS_Store
+*.DS_Store
+Thumbs.db
+
+# -----------------
+# 4. Logs & Temp
+# -----------------
+*.log
+*.tmp
+*.bak
+*.swp
+
+# -----------------
+# 5. IDE / Editor
+# -----------------
+.idea/
+.vscode/
+
+# -----------------
+# 6. Optional: Project Scripts
+# -----------------
+# You can uncomment these if you don't want to track your python generation scripts
+# scaffold_backend.py
+# scaffold_frontend.py
+# scaffold_frontend_2.py

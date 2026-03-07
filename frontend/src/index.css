@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #F48FB1;
+  --color-secondary: #FFF3E0;
+  --color-accent: #5D4037;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
+}
+
+:root {
+  --primary: #F48FB1;
+  --secondary: #FFF3E0;
+  --accent: #5D4037;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--secondary);
+  color: var(--accent);
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Playfair Display', serif;
+}

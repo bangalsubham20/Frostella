@@ -1,0 +1,41 @@
+# ==========================================
+# Frostella Backend .gitignore
+# ==========================================
+
+# 1. Maven build outputs
+target/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# 2. IDE / Environment
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+.springBeans
+
+# 3. Logs and temp files
+*.log
+logs/
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# 4. OS files
+.DS_Store
+Thumbs.db
+
+# 5. Environment configuration (NEVER COMMIT SECRETS)
+# uncomment line below if you plan to inject application.properties differently
+# application-dev.properties
+# application-prod.properties
+
+# 6. Maven Wrapper (Optional: exclude wrapper jar, keep scripts if needed)
+.mvn/wrapper/maven-wrapper.jar
