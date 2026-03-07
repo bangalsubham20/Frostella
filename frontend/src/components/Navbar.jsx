@@ -28,6 +28,9 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-8 items-center">
             <Link to="/" className="hover:text-accent transition-colors font-medium">Home</Link>
             <Link to="/menu" className="hover:text-accent transition-colors font-medium">Menu</Link>
+            {isAuthenticated && (
+              <Link to="/orders" className="hover:text-accent transition-colors font-medium">My Orders</Link>
+            )}
             {role === 'ADMIN' && (
               <Link to="/admin" className="hover:text-accent transition-colors font-medium">Dashboard</Link>
             )}
