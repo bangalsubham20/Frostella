@@ -23,7 +23,9 @@ export default function Login() {
       navigate('/');
     } catch (error) {
       console.error(error);
-      setError(error.response?.data || 'Login failed. Please check your credentials.');
+      const errorData = error.response?.data;
+      const errorMessage = typeof errorData === 'object' ? (errorData.message || errorData.error || JSON.stringify(errorData)) : errorData;
+      setError(errorMessage || 'Login failed. Please check your credentials.');
     } finally {
       setLoading(false);
     }

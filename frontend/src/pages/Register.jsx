@@ -21,7 +21,9 @@ export default function Register() {
       navigate('/login');
     } catch (error) {
       console.error(error);
-      setError(error.response?.data || 'Registration failed. Please try again.');
+      const errorData = error.response?.data;
+      const errorMessage = typeof errorData === 'object' ? (errorData.message || errorData.error || JSON.stringify(errorData)) : errorData;
+      setError(errorMessage || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
