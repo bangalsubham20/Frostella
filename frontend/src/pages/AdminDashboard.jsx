@@ -56,6 +56,63 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      <div className="bg-white rounded-2xl p-6 shadow-sm mb-12">
+        <h2 className="text-2xl font-heading text-accent mb-6 border-b border-secondary pb-4">Add New Product</h2>
+        <form 
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const newProduct = {
+              name: formData.get('name'),
+              price: parseFloat(formData.get('price')),
+              category: formData.get('category'),
+              description: formData.get('description'),
+              imageUrl: formData.get('imageUrl') || '',
+              isAvailable: true
+            };
+            try {
+              await api.post('/products', newProduct);
+              alert('Product added successfully!');
+              e.target.reset();
+            } catch (err) {
+              alert('Failed to add product');
+              console.error(err);
+            }
+          }}
+        >
+          <div>
+            <label className="block text-sm font-medium text-accent mb-2">Cake Name</label>
+            <input name="name" required type="text" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary" placeholder="e.g. Pineapple Delight" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-accent mb-2">Price (₹)</label>
+            <input name="price" required type="number" step="0.01" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-accent mb-2">Category</label>
+            <select name="category" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary">
+              <option value="Cakes">Cakes</option>
+              <option value="Cupcakes">Cupcakes</option>
+              <option value="Custom Cakes">Custom Cakes</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-accent mb-2">Image URL (Optional placeholder)</label>
+            <input name="imageUrl" type="text" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary" placeholder="https://..." />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-accent mb-2">Description</label>
+            <textarea name="description" required rows="3" className="w-full p-3 bg-secondary rounded-lg border-none focus:ring-2 focus:ring-primary"></textarea>
+          </div>
+          <div className="md:col-span-2">
+            <button type="submit" className="bg-primary text-white px-8 py-3 rounded-xl font-medium hover:bg-opacity-90 transition-all">
+              Add Cake to Menu
+            </button>
+          </div>
+        </form>
+      </div>
+
       <div className="bg-white rounded-2xl p-6 shadow-sm">
         <div className="flex justify-between items-center mb-6 border-b border-secondary pb-4">
           <h2 className="text-2xl font-heading text-accent">Recent Orders</h2>
