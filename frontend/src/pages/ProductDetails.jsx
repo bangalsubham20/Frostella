@@ -28,7 +28,7 @@ export default function ProductDetails() {
           price: id == '3' ? 80 : 650,
           category: id == '3' ? 'Cupcakes' : 'Cakes',
           description: 'A deeply rich and moist 100% eggless treat crafted to make your moments perfect. Baked with premium quality ingredients and no preservatives.',
-          image_url: ''
+          imageUrl: ''
         });
       } finally {
         setLoading(false);
@@ -56,8 +56,12 @@ export default function ProductDetails() {
       <Link to="/menu" className="text-primary hover:underline font-medium mb-8 inline-block">← Back to Menu</Link>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white p-8 rounded-3xl shadow-sm">
-        <div className="h-96 bg-secondary rounded-2xl flex items-center justify-center">
-          <span className="text-9xl">{product.category === 'Cupcakes' ? '🧁' : '🎂'}</span>
+        <div className="h-96 bg-secondary rounded-2xl flex items-center justify-center overflow-hidden">
+          {product.imageUrl ? (
+            <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+          ) : (
+            <span className="text-9xl">{product.category === 'Cupcakes' ? '🧁' : '🎂'}</span>
+          )}
         </div>
         
         <div className="space-y-6">
