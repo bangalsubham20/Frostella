@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import api from '../services/api';
-import { User, Mail, Phone, Lock, Loader2, UserPlus } from 'lucide-react';
+import { User, Mail, Phone, Lock, Loader2, UserPlus, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -17,123 +18,121 @@ export default function Register() {
     setError('');
     try {
       await api.post('/auth/register', formData);
-      alert('Registration successful! Please login.');
+      alert('Welcome to the Frostella family! Please sign in.');
       navigate('/login');
     } catch (error) {
-      console.error(error);
       const errorData = error.response?.data;
       const errorMessage = typeof errorData === 'object' ? (errorData.message || errorData.error || JSON.stringify(errorData)) : errorData;
-      setError(errorMessage || 'Registration failed. Please try again.');
+      setError(errorMessage || 'Registration failed. Let\'s try that again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center px-4 py-12">
-      {/* Background with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: "url('/images/hero_bg.png')" }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm"></div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-lg">
-        <div className="bg-white bg-opacity-90 backdrop-blur-lg p-10 rounded-[2.5rem] shadow-2xl border border-white border-opacity-20 transform transition-all mt-10">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-heading text-accent mb-2">Create Account</h1>
-            <p className="text-accent opacity-60 font-medium">Join our community of cake lovers!</p>
+    <div className="min-h-screen bg-mesh flex items-center justify-center px-4 py-32 overflow-hidden">
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+        
+        {/* Visual Content */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }} 
+          animate={{ opacity: 1, x: 0 }} 
+          className="hidden lg:block lg:col-span-5 space-y-12"
+        >
+          <div className="flex items-center gap-3">
+            <Sparkles className="text-primary" />
+            <span className="text-primary font-bold tracking-[.4em] uppercase text-[10px]">Artisan Membership</span>
           </div>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 text-sm rounded-r-lg">
-              {error}
+          <h1 className="text-7xl font-heading text-accent leading-none">Join the <br/><span className="text-primary italic">Patisserie</span></h1>
+          <p className="text-lg text-accent/60 font-medium italic leading-relaxed">
+            "Become a part of our artisanal journey and enjoy curated treats, early reservations, and sweet surprises."
+          </p>
+          
+          <div className="bg-white/50 backdrop-blur-md p-8 rounded-[3rem] border border-white shadow-premium max-w-sm">
+            <div className="flex items-center gap-6 mb-6">
+               <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
+                 <Lock size={20} />
+               </div>
+               <p className="text-xs font-bold text-accent uppercase tracking-widest">Secure & Identity-First</p>
             </div>
-          )}
+            <p className="text-xs text-accent/40 font-medium leading-relaxed">Your data is secured with JWT encryption in our private cloud infrastructure.</p>
+          </div>
+        </motion.div>
 
-          <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="group md:col-span-2">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Full Name</label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="text" 
-                  onChange={e => setFormData({...formData, name: e.target.value})} 
-                  placeholder="John Doe"
-                  className="w-full pl-12 pr-4 py-3.5 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+        {/* Form Content */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="lg:col-span-7"
+        >
+          <div className="bg-white/80 backdrop-blur-2xl p-10 md:p-14 rounded-[4rem] shadow-premium border border-white">
+            <div className="mb-12">
+              <h2 className="text-4xl font-heading text-accent mb-2">Create Profile</h2>
+              <p className="text-accent/40 font-bold uppercase tracking-widest text-[10px]">Begin your sweet history today</p>
+            </div>
+
+            {error && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8 p-5 bg-red-50 text-red-600 text-xs font-bold rounded-2xl border border-red-100 italic">
+                {error}
+              </motion.div>
+            )}
+
+            <form onSubmit={handleRegister} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="md:col-span-2 space-y-2">
+                <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest ml-1">Legal Designation (Name)</label>
+                <div className="relative group">
+                  <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input required type="text" onChange={e => setFormData({...formData, name: e.target.value})} placeholder="Master Chef / Sweet Tooth" className="w-full pl-14 pr-6 py-4 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" />
+                </div>
               </div>
-            </div>
 
-            <div className="group">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="email" 
-                  onChange={e => setFormData({...formData, email: e.target.value})} 
-                  placeholder="john@example.com"
-                  className="w-full pl-12 pr-4 py-3.5 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest ml-1">Electronic Mail</label>
+                <div className="relative group">
+                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input required type="email" onChange={e => setFormData({...formData, email: e.target.value})} placeholder="you@example.com" className="w-full pl-14 pr-6 py-4 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" />
+                </div>
               </div>
-            </div>
 
-            <div className="group">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Phone Number</label>
-              <div className="relative">
-                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="text" 
-                  onChange={e => setFormData({...formData, phone: e.target.value})} 
-                  placeholder="+91 9876543210"
-                  className="w-full pl-12 pr-4 py-3.5 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest ml-1">Tele-Communication (Phone)</label>
+                <div className="relative group">
+                  <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input required type="text" onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+91 XXXX XXX XXX" className="w-full pl-14 pr-6 py-4 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" />
+                </div>
               </div>
-            </div>
 
-            <div className="group md:col-span-2">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="password" 
-                  onChange={e => setFormData({...formData, password: e.target.value})} 
-                  placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-3.5 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+              <div className="md:col-span-2 space-y-2">
+                <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest ml-1">Pass-Code Protection</label>
+                <div className="relative group">
+                  <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input required type="password" onChange={e => setFormData({...formData, password: e.target.value})} placeholder="••••••••" className="w-full pl-14 pr-6 py-4 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" />
+                </div>
               </div>
-            </div>
 
-            <button 
-              disabled={loading}
-              type="submit" 
-              className="md:col-span-2 w-full bg-accent text-white py-4 rounded-2xl font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl flex items-center justify-center gap-2 group mt-2"
-            >
-              {loading ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
-              ) : (
-                <>
-                  Register
-                  <UserPlus className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                </>
-              )}
-            </button>
+              <button 
+                disabled={loading}
+                className="md:col-span-2 w-full h-20 bg-accent text-white rounded-3xl font-bold text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
+              >
+                {loading ? <Loader2 className="animate-spin" /> : (
+                  <>
+                    Initialize Membership
+                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </>
+                )}
+              </button>
 
-            <div className="md:col-span-2 text-center pt-2">
-              <p className="text-accent opacity-70 font-medium">
-                Already have an account? {' '}
-                <Link to="/login" className="text-primary font-bold hover:underline decoration-2 underline-offset-4">
-                  Log in here
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
+              <div className="md:col-span-2 text-center pt-6">
+                <p className="text-accent/40 text-xs font-bold uppercase tracking-widest">
+                  Part of the family? {' '}
+                  <Link to="/login" className="text-primary hover:underline underline-offset-4">
+                    Member Login
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
