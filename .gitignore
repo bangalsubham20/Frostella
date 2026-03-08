@@ -58,6 +58,6 @@ Thumbs.db
 # 6. Optional: Project Scripts
 # -----------------
 # You can uncomment these if you don't want to track your python generation scripts
-# scaffold_backend.py
-# scaffold_frontend.py
-# scaffold_frontend_2.py
+# backend/tools/scaffold_backend.py
+# frontend/tools/scaffold_frontend*.py
+# backend/tools/update_db_images.py
