@@ -1,18 +1,20 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import authReducer from './authSlice';
 import cartReducer from './cartSlice';
+import authReducer from './authSlice';
+import wishlistReducer from './wishlistSlice';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
   cart: cartReducer,
+  auth: authReducer,
+  wishlist: wishlistReducer,
 });
 
 const persistConfig = {
-  key: 'frostella_root',
+  key: 'root',
   storage,
-  whitelist: ['cart', 'auth'] // Ensure both are persisted correctly
+  whitelist: ['cart', 'wishlist']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

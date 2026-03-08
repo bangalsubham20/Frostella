@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { loginSuccess } from '../redux/authSlice';
 import api from '../services/api';
-import { Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -22,94 +23,117 @@ export default function Login() {
       dispatch(loginSuccess(data));
       navigate('/');
     } catch (error) {
-      console.error(error);
       const errorData = error.response?.data;
       const errorMessage = typeof errorData === 'object' ? (errorData.message || errorData.error || JSON.stringify(errorData)) : errorData;
-      setError(errorMessage || 'Login failed. Please check your credentials.');
+      setError(errorMessage || 'Invalid credentials. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center px-4 py-12">
-      {/* Background with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: "url('/images/hero_bg.png')" }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-40 backdrop-blur-sm"></div>
-      </div>
-
-      <div className="relative z-10 w-full max-w-md">
-        <div className="bg-white bg-opacity-90 backdrop-blur-lg p-10 rounded-[2.5rem] shadow-2xl border border-white border-opacity-20 transform transition-all">
-          <div className="text-center mb-10">
-            <h1 className="text-5xl font-heading text-accent mb-2">Frostella</h1>
-            <p className="text-accent opacity-60 font-medium">Welcome back, sweet friend!</p>
+    <div className="min-h-screen bg-mesh flex items-center justify-center px-4 py-20 overflow-hidden">
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        
+        {/* Artistic Side */}
+        <motion.div 
+          initial={{ opacity: 0, x: -30 }} 
+          animate={{ opacity: 1, x: 0 }} 
+          className="hidden lg:block space-y-10"
+        >
+          <div className="flex items-center gap-3">
+            <Sparkles className="text-primary" />
+            <span className="text-primary font-bold tracking-[.4em] uppercase text-[10px]">Premium Member Access</span>
           </div>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 text-sm rounded-r-lg animate-pulse">
-              {error}
+          <h1 className="text-8xl font-heading text-accent leading-none">Sweet <br/><span className="text-primary italic">Homecoming</span></h1>
+          <p className="text-xl text-accent/60 font-medium italic max-w-md leading-relaxed">
+            "Enter your sanctuary of artisanal treats and managed your gourmet reservations."
+          </p>
+          <div className="flex -space-x-4 pt-10">
+            {[1, 2, 3, 4].map(i => (
+              <img key={i} src={`https://i.pravatar.cc/100?u=${i}`} className="w-14 h-14 rounded-full border-4 border-white shadow-lg" alt="" />
+            ))}
+            <div className="w-14 h-14 rounded-full border-4 border-white bg-primary text-white flex items-center justify-center text-xs font-bold shadow-lg">
+              1K+
             </div>
-          )}
+          </div>
+        </motion.div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="group">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="email" 
-                  value={email} 
-                  onChange={e => setEmail(e.target.value)} 
-                  placeholder="name@example.com"
-                  className="w-full pl-12 pr-4 py-4 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+        {/* Form Side */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }}
+          className="relative"
+        >
+          <div className="bg-white/80 backdrop-blur-2xl p-12 md:p-16 rounded-[4rem] shadow-premium border border-white">
+            <div className="text-center lg:text-left mb-12">
+              <h2 className="text-4xl font-heading text-accent mb-2">Sign In</h2>
+              <p className="text-accent/40 font-bold uppercase tracking-widest text-[10px]">Welcome back to Frostella</p>
+            </div>
+
+            {error && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mb-8 p-4 bg-red-50 text-red-600 text-xs font-bold rounded-2xl border border-red-100 italic">
+                {error}
+              </motion.div>
+            )}
+
+            <form onSubmit={handleLogin} className="space-y-8">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest ml-1">Email Intelligence</label>
+                <div className="relative group">
+                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input 
+                    required 
+                    type="email" 
+                    value={email} 
+                    onChange={e => setEmail(e.target.value)} 
+                    placeholder="your@email.com"
+                    className="w-full pl-14 pr-6 py-5 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" 
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="group">
-              <label className="block text-sm font-bold text-accent mb-2 ml-1">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-accent opacity-40 group-focus-within:text-primary transition-colors" />
-                <input 
-                  required 
-                  type="password" 
-                  value={password} 
-                  onChange={e => setPassword(e.target.value)} 
-                  placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-secondary bg-opacity-50 rounded-2xl border-2 border-transparent focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary focus:ring-opacity-10 outline-none transition-all font-medium text-accent" 
-                />
+              <div className="space-y-2">
+                <div className="flex justify-between px-1">
+                  <label className="text-[10px] font-bold text-accent/40 uppercase tracking-widest">Secret Vault</label>
+                  <button type="button" className="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">Forgot?</button>
+                </div>
+                <div className="relative group">
+                  <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-accent/20 group-focus-within:text-primary transition-colors" />
+                  <input 
+                    required 
+                    type="password" 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value)} 
+                    placeholder="••••••••"
+                    className="w-full pl-14 pr-6 py-5 bg-secondary/30 rounded-3xl border-2 border-transparent focus:border-primary/20 focus:bg-white focus:ring-4 focus:ring-primary/5 transition-all outline-none font-medium text-accent" 
+                  />
+                </div>
               </div>
-            </div>
 
-            <button 
-              disabled={loading}
-              type="submit" 
-              className="w-full bg-primary text-white py-4 rounded-2xl font-bold text-lg hover:bg-opacity-90 transition-all shadow-xl hover:shadow-primary hover:shadow-opacity-20 flex items-center justify-center gap-2 group"
-            >
-              {loading ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
-              ) : (
-                <>
-                  Login
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </button>
+              <button 
+                disabled={loading}
+                className="w-full bg-accent text-white h-20 rounded-3xl font-bold text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
+              >
+                {loading ? <Loader2 className="animate-spin" /> : (
+                  <>
+                    Unlock Experience
+                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                  </>
+                )}
+              </button>
 
-            <div className="text-center pt-4">
-              <p className="text-accent opacity-70 font-medium">
-                New to our bakery? {' '}
-                <Link to="/register" className="text-primary font-bold hover:underline decoration-2 underline-offset-4">
-                  Join us here
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
+              <div className="text-center pt-8 border-t border-accent/5">
+                <p className="text-accent/40 text-xs font-bold uppercase tracking-widest">
+                  Not a collector yet? {' '}
+                  <Link to="/register" className="text-primary hover:underline underline-offset-4">
+                    Join the Patisserie
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
