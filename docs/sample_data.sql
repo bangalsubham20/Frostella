@@ -6,12 +6,12 @@ INSERT INTO Users (name, email, password, phone, role) VALUES
 ('Subham Customer', 'subham@example.com', '$2a$10$X8XzQ5FvX1XzQ5FvX1XzQ.gXo', '1234567890', 'CUSTOMER');
 
 INSERT INTO Products (name, description, price, category, image_url, is_available) VALUES 
-('Chocolate Truffle', 'A deeply rich and moist 100% eggless treat crafted to make your moments perfect. Baked with premium chocolate ganache.', 650.00, 'Cakes', '', true),
-('Vanilla Buttercream', 'Classic fluffy eggless vanilla sponge cake layered with rich buttercream. Perfect for all ages.', 550.00, 'Cakes', '', true),
-('Red Velvet Cupcake', 'Our signature eggless red velvet cupcake topped with our distinctive sweet cream cheese frosting.', 80.00, 'Cupcakes', '', true),
-('Custom Anniversary Base', 'A customizable base for your special anniversary. Add detailed instructions at checkout.', 1200.00, 'Custom Cakes', '', true),
-('Blueberry Bliss', 'Delicious baked eggless cake filled with fresh blueberry compote.', 700.00, 'Cakes', '', true),
-('Theme Party Cupcakes (Box of 6)', 'A box of 6 customizable themed eggless cupcakes.', 450.00, 'Cupcakes', '', true);
+('Chocolate Truffle', 'A deeply rich and moist 100% eggless treat crafted to make your moments perfect. Baked with premium chocolate ganache.', 650.00, 'Cakes', '/images/chocolate_truffle.png', true),
+('Vanilla Buttercream', 'Classic fluffy eggless vanilla sponge cake layered with rich buttercream. Perfect for all ages.', 550.00, 'Cakes', '/images/pineapple_cake.png', true),
+('Red Velvet Cupcake', 'Our signature eggless red velvet cupcake topped with our distinctive sweet cream cheese frosting.', 80.00, 'Cupcakes', '/images/cupcakes.png', true),
+('Custom Anniversary Base', 'A customizable base for your special anniversary. Add detailed instructions at checkout.', 1200.00, 'Custom Cakes', '/images/red_velvet.png', true),
+('Blueberry Bliss', 'Delicious baked eggless cake filled with fresh blueberry compote.', 700.00, 'Cakes', '/images/chocolate_truffle.png', true),
+('Theme Party Cupcakes (Box of 6)', 'A box of 6 customizable themed eggless cupcakes.', 450.00, 'Cupcakes', '/images/cupcakes.png', true);
 
 -- Add some dummy orders for the admin dashboard to process
 INSERT INTO Orders (user_id, total_amount, status, delivery_address, delivery_date, payment_method) VALUES 
