@@ -1,89 +1,73 @@
-# Frostella Bakery - End-to-End System
+# Frostella - The Artisanal Patisserie Boutique
 
-Welcome to the Frostella Bakery repository. This repository contains the complete full-stack solution for Frostella, a home-baked cake brand.
+Welcome to the **Frostella** repository. This is a high-fidelity, end-to-end e-commerce solution for a premium home-baked cake brand specializing in **100% Eggless** gourmet masterpieces.
 
-## Deliverables Generated
-- **Architecture Diagram**: [docs/architecture_diagram.md](docs/architecture_diagram.md)
-- **Database Schema**: [docs/database_schema.sql](docs/database_schema.sql)
-- **Spring Boot Backend**: Located in `backend/` directory.
-- **React Frontend**: Located in `frontend/` directory.
+## ✨ Boutique Features
+- **Artisanal Product Gallery**: A curated menu with category-specific filtering and premium visual presentation.
+- **Boutique Reservation System**: A sophisticated checkout flow with custom message support for cakes.
+- **Identity & Personalization**: Secure authentication with JWT, user order history, and a private **Wishlist curation** vault.
+- **Executive Admin Studio**: A comprehensive dashboard for managing menu inventory, logistics (orders), customer intelligence (reviews), and community members.
+- **Gourmet Communications**: Automated HTML email receipts with boutique branding for every successful reservation.
+- **Responsive Premium UI**: Built with a "Soft Mesh" design system, high-fidelity micro-animations (Framer Motion), and boutique typography (Playfair Display & Outfit).
 
-## System Architecture summary
-- **Frontend**: React, Vite, TailwindCSS, React Router, Redux (or Context API), Axios
-- **Backend**: Java 17, Spring Boot 3.2.3, Spring Security, JWT Authentication, Spring Data JPA
-- **Database**: MySQL 8+
-- **External Dependencies**: Cloudinary (Images), Razorpay (Payment), Email notification services.
+## 🚀 Technology Stack
+- **Frontend**: React 18, Vite, Tailwind CSS, Redux Toolkit, Framer Motion, Lucide Icons.
+- **Backend**: Java 17, Spring Boot 3.2, Spring Security (JWT), Spring Data JPA, Hibernate.
+- **Database**: MySQL 8.
+- **Integrations**: Cloudinary (Media), Razorpay (Payments), Java Mail (Boutique Notifications).
 
-## Environment Configuration
+## 📂 Project Structure
+- **/frontend**: React-Vite application with modular component architecture.
+- **/backend**: Spring Boot REST API following 3-tier architecture.
+- **/docs**: System diagrams and database schemas.
 
-### Backend (`application.properties`)
-Create a `application-dev.properties` or configure your environment variables:
+## 🛠️ Installation & Setup
+
+### 1. Database Initialization
+Initialize your MySQL instance and run the schema found in `docs/database_schema.sql`.
+
+### 2. Backend Configuration
+Configure `backend/src/main/resources/application.properties`:
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/frostella_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://localhost:3306/frostella_db
 spring.datasource.username=root
-spring.datasource.password=your_db_password
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.password=your_password
 
-# Security
-jwt.secret=9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9
-jwt.expiration=86400000
+# Security Credentials
+jwt.secret=YOUR_64_CHARACTER_SECURE_KEY
 
-# Server
-server.port=8080
+# Integration Keys (Cloudinary, Razorpay, Mail)
+cloudinary.cloud_name=...
+cloudinary.api_key=...
+cloudinary.api_secret=...
+
+razorpay.key_id=...
+razorpay.key_secret=...
+
+spring.mail.username=...
+spring.mail.password=...
 ```
 
-### Frontend (`.env`)
-Create a `.env` file in the `frontend` folder to connect to the backend:
+### 3. Frontend Configuration
+Create a `.env` in the `frontend` directory:
 ```env
 VITE_API_URL=http://localhost:8080/api
-VITE_RAZORPAY_KEY=your_razorpay_test_key
+VITE_RAZORPAY_KEY=YOUR_RAZORPAY_KEY
 ```
 
-## Running the Application Locally
+### 4. Direct Execution
+```bash
+# Terminal 1: Backend
+cd backend && mvn spring-boot:run
 
-### Database Initialization
-Run the schema provided in `docs/database_schema.sql` on your MySQL server to initialize the database before running the backend.
+# Terminal 2: Frontend
+cd frontend && npm install && npm run dev
+```
 
-### Backend Setup
-1. Open terminal and navigate to `backend/`.
-2. Run `mvn clean install` to install dependencies.
-3. Run `mvn spring-boot:run` to start the server at `http://localhost:8080`.
+## 🏗️ Deployment
+- **Frontend**: Best deployed on **Vercel** or **Netlify** (Root: `/frontend`).
+- **Backend**: Optimized for **Render**, **Railway**, or **AWS Elastic Beanstalk**.
+- **Database**: Compatible with **Tidb**, **PlanetScale**, or **RDS**.
 
-### Frontend Setup
-1. Open terminal and navigate to `frontend/`.
-2. Run `npm install` to install React dependencies and TailwindCSS.
-3. Run `npm run dev` to start the Vite development server.
-4. Visit `http://localhost:5173`.
-
-## Deployment Instructions
-
-### Database (PlanetScale / AWS RDS)
-1. Provision a MySQL database on PlanetScale or AWS RDS.
-2. Run the `docs/database_schema.sql` against the new database.
-3. Keep the host, username, and password credentials handy.
-
-### Backend (Render)
-1. Commit and push the code to a GitHub repository.
-2. Log into Render and create a new Web Service.
-3. Connect the GitHub repo and choose the `backend/` directory.
-4. Build Command: `mvn clean package -DskipTests`
-5. Start Command: `java -jar target/backend-0.0.1-SNAPSHOT.jar`
-6. Add Environment Variables from the configuration section above.
-
-### Frontend (Vercel / Netlify)
-1. Log into Vercel/Netlify and import your GitHub repository.
-2. Select the `frontend` directory as the Root Directory.
-3. Build command: `npm run build`
-4. Output directory: `dist`
-5. Add the `VITE_API_URL` pointing to your deployed Render backend URL.
-6. Deploy your application.
-
-## API Endpoints (Quick Reference)
-- `POST /api/auth/register` - Create a new user account
-- `POST /api/auth/login` - Authenticate and receive a JWT token
-- `GET /api/products` - Retrieve all available cakes and items
-- `POST /api/orders` - Place a new order
-- `GET /api/orders/user/{userId}` - View orders for a specific user
-
-## Sample Test Data (Optional)
-Insert mock data directly using SQL to test features before creating the admin panel interface. See the database documentation for tables to populate (Products Table, etc.).
+---
+*Designed with Precision for Frostella by Roshni Patra.*

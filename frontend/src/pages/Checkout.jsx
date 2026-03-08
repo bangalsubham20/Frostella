@@ -56,7 +56,7 @@ export default function Checkout() {
       const { data } = await api.post('/payment/create-order', { amount: total * 100 });
       
       const options = {
-        key: 'rzp_test_mockkey1234567',
+        key: import.meta.env.VITE_RAZORPAY_KEY || 'rzp_test_placeholder',
         amount: data.amount,
         currency: data.currency,
         name: 'Frostella',

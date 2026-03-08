@@ -38,9 +38,13 @@ const authSlice = createSlice({
       localStorage.removeItem('role');
       localStorage.removeItem('email');
       localStorage.removeItem('userId');
+    },
+    updateProfile: (state, action) => {
+      state.email = action.payload.email || state.email;
+      if (action.payload.email) localStorage.setItem('email', action.payload.email);
     }
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
+export const { loginSuccess, logout, updateProfile } = authSlice.actions;
 export default authSlice.reducer;

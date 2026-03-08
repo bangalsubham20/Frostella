@@ -12,7 +12,7 @@ export default function Navbar() {
   const cartItems = useSelector(state => state.cart.items);
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const wishlistCount = useSelector(state => state.wishlist.items.length);
-  const { isAuthenticated, role } = useSelector(state => state.auth);
+  const { isAuthenticated, role, email } = useSelector(state => state.auth);
   
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ export default function Navbar() {
               
               <div className="flex items-center gap-8 ml-6 border-l border-accent/5 pl-10">
                 {/* Wishlist */}
-                <Link to="/menu" className="relative group text-accent/60 hover:text-primary transition-colors">
+                <Link to="/wishlist" className="relative group text-accent/60 hover:text-primary transition-colors">
                   <Heart size={20} className="group-hover:scale-110 transition-transform" />
                   {wishlistCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-accent text-white text-[8px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-white">
@@ -114,6 +114,14 @@ export default function Navbar() {
                 {/* Profile/Auth */}
                 {isAuthenticated ? (
                   <div className="flex items-center gap-6">
+                    <Link to="/profile" className="flex items-center gap-3 bg-secondary/80 backdrop-blur-md px-6 py-3 rounded-2xl hover:bg-white transition-all group/user border border-accent/5">
+                      <div className="w-8 h-8 rounded-xl bg-accent text-white flex items-center justify-center font-bold text-xs uppercase group-hover/user:scale-110 transition-transform">
+                        {email?.charAt(0)}
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent/60 hidden xl:block">
+                        Atelier Member
+                      </span>
+                    </Link>
                     {role === 'ADMIN' ? (
                       <Link to="/admin" className="px-5 py-2 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-primary hover:text-white transition-all">Studio Dashboard</Link>
                     ) : (
