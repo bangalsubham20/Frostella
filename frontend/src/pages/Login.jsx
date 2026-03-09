@@ -65,10 +65,10 @@ export default function Login() {
           animate={{ opacity: 1, y: 0 }}
           className="relative"
         >
-          <div className="bg-white/80 backdrop-blur-2xl p-12 md:p-16 rounded-[4rem] shadow-premium border border-white">
-            <div className="text-center lg:text-left mb-12">
-              <h2 className="text-4xl font-heading text-accent mb-2">Sign In</h2>
-              <p className="text-accent/40 font-bold uppercase tracking-widest text-[10px]">Welcome back to Frostella</p>
+          <div className="bg-white/80 backdrop-blur-2xl p-8 sm:p-12 md:p-16 rounded-[2.5rem] sm:rounded-[4rem] shadow-premium border border-white">
+            <div className="text-center lg:text-left mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl font-heading text-accent mb-2">Sign In</h2>
+              <p className="text-accent/40 font-bold uppercase tracking-widest text-[9px] sm:text-[10px]">Welcome back to Frostella</p>
             </div>
 
             {error && (
@@ -113,7 +113,7 @@ export default function Login() {
 
               <button 
                 disabled={loading}
-                className="w-full bg-accent text-white h-20 rounded-3xl font-bold text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
+                className="w-full bg-accent text-white h-16 sm:h-20 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
               >
                 {loading ? <Loader2 className="animate-spin" /> : (
                   <>

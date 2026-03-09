@@ -65,10 +65,10 @@ export default function Register() {
           animate={{ opacity: 1, y: 0 }}
           className="lg:col-span-7"
         >
-          <div className="bg-white/80 backdrop-blur-2xl p-10 md:p-14 rounded-[4rem] shadow-premium border border-white">
-            <div className="mb-12">
-              <h2 className="text-4xl font-heading text-accent mb-2">Create Profile</h2>
-              <p className="text-accent/40 font-bold uppercase tracking-widest text-[10px]">Begin your sweet history today</p>
+          <div className="bg-white/80 backdrop-blur-2xl p-8 sm:p-10 md:p-14 rounded-[2.5rem] sm:rounded-[4rem] shadow-premium border border-white">
+            <div className="mb-10 sm:mb-12 text-center lg:text-left">
+              <h2 className="text-3xl sm:text-4xl font-heading text-accent mb-2">Create Profile</h2>
+              <p className="text-accent/40 font-bold uppercase tracking-widest text-[9px] sm:text-[10px]">Begin your sweet history today</p>
             </div>
 
             {error && (
@@ -112,7 +112,7 @@ export default function Register() {
 
               <button 
                 disabled={loading}
-                className="md:col-span-2 w-full h-20 bg-accent text-white rounded-3xl font-bold text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
+                className="md:col-span-2 w-full h-16 sm:h-20 bg-accent text-white rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-xl shadow-2xl hover:bg-primary transition-all flex items-center justify-center gap-4 group disabled:opacity-50"
               >
                 {loading ? <Loader2 className="animate-spin" /> : (
                   <>

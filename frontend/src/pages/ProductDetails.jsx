@@ -110,17 +110,17 @@ export default function ProductDetails() {
           </Link>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 xl:gap-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-24 xl:gap-32">
           {/* Visual Presentation */}
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative">
-            <div className="aspect-square bg-white rounded-[4rem] shadow-premium overflow-hidden border-2 border-white p-8 group">
-              <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative shadow-inner mb-4">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1 }} className="relative order-1">
+            <div className="aspect-square bg-white rounded-[2.5rem] sm:rounded-[4rem] shadow-premium overflow-hidden border-2 border-white p-4 sm:p-8 group">
+              <div className="w-full h-full rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden relative shadow-inner">
                 <img 
                   src={product.imageUrl || '/images/chocolate_truffle.png'} 
                   alt={product.name} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[6s] ease-out" 
                 />
-                <div className="absolute top-10 left-10"><Sparkles className="text-white/50 animate-pulse" /></div>
+                <div className="absolute top-6 left-6 sm:top-10 sm:left-10"><Sparkles className="text-white/50 animate-pulse size-5 sm:size-6" /></div>
               </div>
             </div>
             
@@ -128,36 +128,36 @@ export default function ProductDetails() {
             <motion.div 
                animate={{ y: [0, -10, 0] }}
                transition={{ duration: 4, repeat: Infinity }}
-               className="absolute -bottom-6 -right-6 bg-accent p-10 rounded-[3rem] shadow-2xl text-white z-20 hidden md:block"
+               className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-accent p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] shadow-2xl text-white z-20 hidden md:block"
             >
-               <p className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Gourmet Rating</p>
-               <div className="flex items-center gap-3">
-                  <span className="text-4xl font-heading italic">{averageRating}</span>
+               <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest opacity-50 mb-1">Gourmet Rating</p>
+               <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-3xl sm:text-4xl font-heading italic">{averageRating}</span>
                   <div className="flex gap-0.5 text-primary">
-                    <Star size={16} fill="currentColor" />
+                    <Star size={14} sm:size={16} fill="currentColor" />
                   </div>
                </div>
             </motion.div>
           </motion.div>
           
           {/* Commercial Content */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center order-2">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <div className="flex items-center gap-6 mb-8">
-                <span className="px-5 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full text-[10px] font-bold tracking-[.4em] uppercase">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-8 mt-6 lg:mt-0">
+                <span className="px-5 py-2 bg-primary/10 text-primary border border-primary/20 rounded-full text-[8px] sm:text-[10px] font-bold tracking-[.3em] sm:tracking-[.4em] uppercase">
                    Artisan {product.category}
                 </span>
-                <span className="text-accent/30 text-[10px] font-bold uppercase tracking-widest">{reviews.length} Experiences Shared</span>
+                <span className="text-accent/30 text-[8px] sm:text-[10px] font-bold uppercase tracking-widest">{reviews.length} Experiences Shared</span>
               </div>
 
-              <h1 className="text-6xl md:text-8xl font-heading text-accent mb-10 leading-none tracking-tight">{product.name}</h1>
-              <div className="flex items-baseline gap-4 mb-12">
-                 <span className="text-6xl font-bold text-primary tracking-tighter">₹{product.price}</span>
-                 <span className="text-accent/30 text-[10px] font-bold uppercase tracking-[.2em]">Starting Base Price</span>
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading text-accent mb-6 sm:mb-10 leading-[0.9] sm:leading-none tracking-tight">{product.name}</h1>
+              <div className="flex items-baseline gap-4 mb-8 sm:mb-12">
+                 <span className="text-4xl sm:text-6xl font-bold text-primary tracking-tighter">₹{product.price}</span>
+                 <span className="text-accent/30 text-[8px] sm:text-[10px] font-bold uppercase tracking-[.2em]">Starting Base Price</span>
               </div>
               
               {/* Product Tabs */}
-              <div className="flex gap-12 border-b border-accent/5 mb-10 overflow-x-auto whitespace-nowrap scrollbar-none">
+              <div className="flex gap-8 sm:gap-12 border-b border-accent/5 mb-8 sm:mb-10 overflow-x-auto whitespace-nowrap scrollbar-none">
                 {['description', 'reviews'].map(tab => (
                   <button 
                     key={tab}

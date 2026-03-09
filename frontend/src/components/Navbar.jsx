@@ -55,26 +55,26 @@ export default function Navbar() {
           <div className="flex justify-between items-center">
             {/* Branding */}
             <div className="flex-shrink-0">
-              <Link to="/" className="group flex items-center gap-3">
-                <div className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-white shadow-xl shadow-accent/20 group-hover:bg-primary group-hover:shadow-primary/20 transition-all duration-500 transform group-hover:rotate-[360deg]">
-                   <Sparkles size={24} className="group-hover:scale-110 transition-transform" />
+              <Link to="/" className="group flex items-center gap-2 sm:gap-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-xl shadow-accent/20 group-hover:bg-primary group-hover:shadow-primary/20 transition-all duration-500 transform group-hover:rotate-[360deg]">
+                   <Sparkles size={20} className="sm:size-6 group-hover:scale-110 transition-transform" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-heading text-3xl font-bold tracking-tight text-accent italic leading-none group-hover:text-primary transition-colors">
+                  <span className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-accent italic leading-none group-hover:text-primary transition-colors">
                     Frostella
                   </span>
-                  <span className="text-[8px] font-bold uppercase tracking-[.4em] text-accent/30 mt-1">Patisserie</span>
+                  <span className="text-[7px] sm:text-[8px] font-bold uppercase tracking-[.3em] sm:tracking-[.4em] text-accent/30 mt-0.5 sm:mt-1">Patisserie</span>
                 </div>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex space-x-12 items-center">
+            <div className="hidden lg:flex space-x-8 xl:space-x-12 items-center">
               {navLinks.map(link => (
                 <Link 
                   key={link.path}
                   to={link.path} 
-                  className={`text-[10px] font-bold uppercase tracking-[.3em] transition-all relative group ${
+                  className={`text-[9px] xl:text-[10px] font-bold uppercase tracking-[.2em] xl:tracking-[.3em] transition-all relative group ${
                     location.pathname === link.path ? 'text-primary' : 'text-accent/60 hover:text-accent'
                   }`}
                 >
@@ -85,12 +85,12 @@ export default function Navbar() {
                 </Link>
               ))}
               
-              <div className="flex items-center gap-8 ml-6 border-l border-accent/5 pl-10">
+              <div className="flex items-center gap-6 xl:gap-8 ml-4 xl:ml-6 border-l border-accent/5 pl-6 xl:pl-10">
                 {/* Wishlist */}
                 <Link to="/wishlist" className="relative group text-accent/60 hover:text-primary transition-colors">
-                  <Heart size={20} className="group-hover:scale-110 transition-transform" />
+                  <Heart size={18} xl:size={20} className="group-hover:scale-110 transition-transform" />
                   {wishlistCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-accent text-white text-[8px] font-bold rounded-full h-4 w-4 flex items-center justify-center border border-white">
+                    <span className="absolute -top-2 -right-2 bg-accent text-white text-[7px] font-bold rounded-full h-3.5 w-3.5 flex items-center justify-center border border-white">
                       {wishlistCount}
                     </span>
                   )}
@@ -98,12 +98,12 @@ export default function Navbar() {
 
                 {/* Cart */}
                 <Link to="/cart" className="relative group text-accent/60 hover:text-primary transition-colors">
-                  <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
+                  <ShoppingCart size={18} xl:size={20} className="group-hover:scale-110 transition-transform" />
                   <AnimatePresence>
                     {cartCount > 0 && (
                       <motion.span 
                         initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
-                        className="absolute -top-2 -right-3 bg-primary text-white text-[8px] font-bold rounded-full h-4 w-5 flex items-center justify-center shadow-lg border-2 border-white"
+                        className="absolute -top-2 -right-3 bg-primary text-white text-[7px] font-bold rounded-full h-3.5 w-4.5 flex items-center justify-center shadow-lg border-2 border-white"
                       >
                         {cartCount}
                       </motion.span>
@@ -113,27 +113,27 @@ export default function Navbar() {
                 
                 {/* Profile/Auth */}
                 {isAuthenticated ? (
-                  <div className="flex items-center gap-6">
-                    <Link to="/profile" className="flex items-center gap-3 bg-secondary/80 backdrop-blur-md px-6 py-3 rounded-2xl hover:bg-white transition-all group/user border border-accent/5">
-                      <div className="w-8 h-8 rounded-xl bg-accent text-white flex items-center justify-center font-bold text-xs uppercase group-hover/user:scale-110 transition-transform">
+                  <div className="flex items-center gap-4 xl:gap-6">
+                    <Link to="/profile" className="flex items-center gap-2 xl:gap-3 bg-secondary/80 backdrop-blur-md px-4 xl:px-6 py-2.5 xl:py-3 rounded-xl xl:rounded-2xl hover:bg-white transition-all group/user border border-accent/5">
+                      <div className="w-7 h-7 xl:w-8 xl:h-8 rounded-lg xl:rounded-xl bg-accent text-white flex items-center justify-center font-bold text-[10px] xl:text-xs uppercase group-hover/user:scale-110 transition-transform">
                         {email?.charAt(0)}
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-accent/60 hidden xl:block">
+                      <span className="text-[9px] xl:text-[10px] font-bold uppercase tracking-widest text-accent/60 hidden xl:block">
                         Atelier Member
                       </span>
                     </Link>
                     {role === 'ADMIN' ? (
-                      <Link to="/admin" className="px-5 py-2 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-primary hover:text-white transition-all">Studio Dashboard</Link>
+                      <Link to="/admin" className="px-4 py-1.5 xl:px-5 xl:py-2 bg-primary/10 text-primary text-[9px] xl:text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-primary hover:text-white transition-all whitespace-nowrap">Studio Dashboard</Link>
                     ) : (
-                      <Link to="/orders" className="text-accent/60 hover:text-primary text-[10px] font-bold uppercase tracking-widest transition-all">My History</Link>
+                      <Link to="/orders" className="text-accent/60 hover:text-primary text-[9px] xl:text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap">My History</Link>
                     )}
                     <button onClick={handleLogout} className="text-accent/30 hover:text-red-500 transition-colors">
-                      <LogOut size={18} />
+                      <LogOut size={16} xl:size={18} />
                     </button>
                   </div>
                 ) : (
-                  <Link to="/login" className="flex items-center gap-2 px-6 py-2.5 bg-accent text-white text-[10px] font-bold uppercase tracking-[.2em] rounded-full hover:bg-primary transition-all shadow-xl shadow-accent/10">
-                    <User size={14} />
+                  <Link to="/login" className="flex items-center gap-2 px-5 py-2 xl:px-6 xl:py-2.5 bg-accent text-white text-[9px] xl:text-[10px] font-bold uppercase tracking-[.15em] xl:tracking-[.2em] rounded-full hover:bg-primary transition-all shadow-xl shadow-accent/10">
+                    <User size={12} xl:size={14} />
                     Identity
                   </Link>
                 )}

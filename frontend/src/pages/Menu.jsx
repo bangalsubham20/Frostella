@@ -57,27 +57,27 @@ export default function Menu() {
     <div className="bg-mesh min-h-screen py-32 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16 px-4">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10 sm:mb-16 px-4">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <Sparkles className="text-primary w-5 h-5 animate-pulse" />
-            <span className="text-primary font-bold tracking-[.4em] uppercase text-[10px]">The Artisanal Collection</span>
-            <Sparkles className="text-primary w-5 h-5 animate-pulse" />
+            <Sparkles className="text-primary w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+            <span className="text-primary font-bold tracking-[.3em] sm:tracking-[.4em] uppercase text-[8px] sm:text-[10px]">The Artisanal Collection</span>
+            <Sparkles className="text-primary w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
           </div>
-          <h1 className="text-6xl md:text-[9rem] font-heading text-accent mb-10 leading-none">Curated <span className="text-primary italic">Treats.</span></h1>
-          <p className="max-w-xl mx-auto text-accent opacity-40 text-lg md:text-xl font-medium italic leading-relaxed">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading text-accent mb-6 sm:mb-10 leading-none">Curated <span className="text-primary italic">Treats.</span></h1>
+          <p className="max-w-xl mx-auto text-accent opacity-40 text-base sm:text-lg md:text-xl font-medium italic leading-relaxed px-4">
             "A symphony of 100% eggless creations, meticulously handcrafted for your celebration."
           </p>
         </motion.div>
         
         {/* Navigation & Search Bar */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-20 bg-white/40 backdrop-blur-3xl p-6 rounded-[3rem] shadow-premium border border-white">
-          <div className="flex gap-4 overflow-x-auto pb-2 lg:pb-0 no-scrollbar w-full lg:w-auto">
-            {['All', 'Cakes', 'Cupcakes', 'Custom Cakes'].map((cat) => (
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-10 mb-12 sm:20 bg-white/40 backdrop-blur-3xl p-4 sm:p-6 rounded-[2rem] sm:rounded-[3rem] shadow-premium border border-white">
+          <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-4 lg:pb-0 no-scrollbar w-full lg:w-auto">
+            {['All', 'Cakes', 'Cupcakes', 'Custom'].map((cat) => (
               <button 
                 key={cat} 
-                onClick={() => setActiveCategory(cat)}
-                className={`px-8 py-3.5 rounded-2xl text-[10px] font-bold tracking-widest uppercase transition-all whitespace-nowrap ${
-                  activeCategory === cat 
+                onClick={() => setActiveCategory(cat === 'Custom' ? 'Custom Cakes' : cat)}
+                className={`px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-[8px] sm:text-[10px] font-bold tracking-widest uppercase transition-all whitespace-nowrap ${
+                  (activeCategory === 'Custom Cakes' && cat === 'Custom') || activeCategory === cat 
                     ? 'bg-accent text-white shadow-xl shadow-accent/20' 
                     : 'bg-white/50 text-accent/40 hover:text-accent hover:bg-white'
                 }`}
@@ -88,13 +88,13 @@ export default function Menu() {
           </div>
 
           <div className="relative w-full lg:w-96 group">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-primary group-focus-within:scale-110 transition-transform" size={18} />
+            <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-primary group-focus-within:scale-110 transition-transform" size={16} sm:size={18} />
             <input 
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by flavor or category..."
-              className="w-full pl-14 pr-14 py-4 bg-white/80 rounded-2xl border-none focus:ring-4 focus:ring-primary/10 font-medium italic text-accent shadow-sm"
+              placeholder="Search by flavor..."
+              className="w-full pl-12 sm:pl-14 pr-12 sm:pr-14 py-3 sm:py-4 bg-white/80 rounded-xl sm:rounded-2xl border-none focus:ring-4 focus:ring-primary/10 font-medium italic text-accent shadow-sm text-sm sm:text-base"
             />
             {searchQuery && (
               <button 

@@ -90,27 +90,27 @@ export default function Profile() {
     <div className="bg-mesh min-h-screen pt-32 pb-24 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-20">
-          <div className="flex flex-col md:flex-row items-center gap-10">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-12 sm:mb-20">
+          <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-10">
              <div className="relative group">
-                <div className="w-40 h-40 bg-white rounded-[3rem] shadow-premium flex items-center justify-center text-6xl font-heading text-accent border border-white relative z-10 overflow-hidden">
+                <div className="w-32 h-32 sm:w-40 sm:h-40 bg-white rounded-[2.5rem] sm:rounded-[3rem] shadow-premium flex items-center justify-center text-4xl sm:text-6xl font-heading text-accent border border-white relative z-10 overflow-hidden">
                    {user?.name.charAt(0)}
                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-xl z-20 animate-pulse">
-                   <Sparkles size={20} />
+                <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-xl sm:rounded-2xl flex items-center justify-center text-white shadow-xl z-20 animate-pulse">
+                   <Sparkles size={18} sm:size={20} />
                 </div>
              </div>
              <div className="text-center md:text-left space-y-4">
-                <span className="text-primary font-bold tracking-[.4em] uppercase text-[10px]">Patisserie Member</span>
-                <h1 className="text-5xl md:text-7xl font-heading text-accent leading-none">Greetings, <br/> <span className="text-primary italic">{user?.name}</span></h1>
-                <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                   <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent/40 hover:text-accent transition-colors">
-                      <Edit2 size={12} /> Edit Narrative
+                <span className="text-primary font-bold tracking-[.3em] sm:tracking-[.4em] uppercase text-[9px] sm:text-[10px]">Patisserie Member</span>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading text-accent leading-tight sm:leading-none">Greetings, <br/> <span className="text-primary italic">{user?.name}</span></h1>
+                <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6">
+                   <button onClick={() => setIsEditing(true)} className="flex items-center gap-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-accent/40 hover:text-accent transition-colors">
+                      <Edit2 size={10} sm:size={12} /> Edit Narrative
                    </button>
-                   <span className="text-accent/10">|</span>
-                   <button onClick={handleLogout} className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-red-400 hover:text-red-500 transition-colors">
-                      <LogOut size={12} /> Log Out
+                   <span className="text-accent/10 hidden sm:inline">|</span>
+                   <button onClick={handleLogout} className="flex items-center gap-2 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-red-400 hover:text-red-500 transition-colors">
+                      <LogOut size={10} sm:size={12} /> Log Out
                    </button>
                 </div>
              </div>
@@ -119,11 +119,11 @@ export default function Profile() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
            {/* Primary Intelligence */}
-           <div className="lg:col-span-8 space-y-12">
-              <div className="bg-white/70 backdrop-blur-3xl rounded-[4rem] p-12 shadow-premium border border-white">
-                 <div className="flex justify-between items-center mb-12">
-                    <h2 className="text-3xl font-heading text-accent">Personal Registry</h2>
-                    <ShieldCheck className="text-primary/20" size={32} />
+           <div className="lg:col-span-8 space-y-8 sm:space-y-12">
+              <div className="bg-white/70 backdrop-blur-3xl rounded-[2.5rem] sm:rounded-[4rem] p-8 sm:p-12 shadow-premium border border-white">
+                 <div className="flex justify-between items-center mb-8 sm:mb-12">
+                    <h2 className="text-2xl sm:text-3xl font-heading text-accent">Personal Registry</h2>
+                    <ShieldCheck className="text-primary/20 hidden sm:block" size={32} />
                  </div>
                  
                  <AnimatePresence mode="wait">
@@ -134,11 +134,11 @@ export default function Profile() {
                          animate={{ opacity: 1, x: 0 }} 
                          exit={{ opacity: 0, x: 10 }}
                          onSubmit={handleUpdate} 
-                         className="space-y-8"
+                         className="space-y-6 sm:space-y-8"
                        >
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                              <div>
-                                <label className="text-[10px] font-bold text-accent uppercase tracking-widest mb-3 ml-1 block">Full Name</label>
+                                <label className="text-[9px] sm:text-[10px] font-bold text-accent uppercase tracking-widest mb-2 sm:mb-3 ml-1 block">Full Name</label>
                                 <input 
                                   value={editForm.name} 
                                   onChange={e => setEditForm({...editForm, name: e.target.value})}
@@ -155,14 +155,14 @@ export default function Profile() {
                                 />
                              </div>
                           </div>
-                          <div className="flex gap-4">
-                             <button type="submit" className="flex-1 bg-accent text-white py-5 rounded-2xl font-bold shadow-xl hover:bg-primary transition-all flex items-center justify-center gap-3">
-                                <Save size={18} /> Commit Changes
-                             </button>
-                             <button type="button" onClick={() => setIsEditing(false)} className="px-10 bg-secondary/50 text-accent py-5 rounded-2xl font-bold flex items-center justify-center gap-3">
-                                <X size={18} /> Cancel
-                             </button>
-                          </div>
+                           <div className="flex flex-col sm:flex-row gap-4">
+                              <button type="submit" className="flex-1 bg-accent text-white py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold shadow-xl hover:bg-primary transition-all flex items-center justify-center gap-3">
+                                 <Save size={16} sm:size={18} /> Commit Changes
+                              </button>
+                              <button type="button" onClick={() => setIsEditing(false)} className="px-10 bg-secondary/50 text-accent py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold flex items-center justify-center gap-3">
+                                 <X size={16} sm:size={18} /> Cancel
+                              </button>
+                           </div>
                        </motion.form>
                     ) : (
                        <motion.div 
